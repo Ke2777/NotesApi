@@ -37,7 +37,7 @@ public class NotesController : ControllerBase
             Content = request.Content
         };
         Notes.Add(note);
-        return Ok(note);
+        return CreatedAtAction(nameof(Get), new { id = note.Id }, note);
     }
 
     [HttpDelete("{id}", Name = "DeleteNote")]
