@@ -6,3 +6,9 @@ public class Note
     public string Title {get; set;}
     public string Body {get; set;}
 }
+
+public class CreateNoteRequest
+{
+    public string Title { get; set; }
+    public string Body { get; set; }
+}
