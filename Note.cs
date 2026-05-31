@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace NotesApi;
 
 public class Note
@@ -9,6 +11,10 @@ public class Note
 
 public class CreateNoteRequest
 {
+    [Required]
+    [MinLength(3)]
     public required string Title { get; set; }
+    [Required]
+    [MaxLength(500)]
     public required string Content { get; set; }
 }

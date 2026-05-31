@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace NotesApi.Controllers;
 [ApiController]
-[Route("[controller]")]
+[Route("notes")]
 public class NotesController : ControllerBase
 {
     static List<Note> Notes = new();
