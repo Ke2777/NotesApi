@@ -1,73 +1,72 @@
 using Microsoft.AspNetCore.Mvc;
+using NotesApi.Mappers;
+using NotesApi.Dtos;
+using NotesApi.Models;
+using NotesApi.Services;
 
 namespace NotesApi.Controllers;
+
 [ApiController]
 [Route("notes")]
 public class NotesController : ControllerBase
 {
-    static List<Note> Notes = new();
-    static int NextId = 1;
+    private readonly INoteService noteService;
 
-    [HttpGet(Name = "GetNotes")]
-    public IEnumerable<Note> Get()
+    public NotesController(INoteService noteService)
     {
-        return Notes;
+        this.noteService = noteService;
     }
 
-    [HttpGet("{id}",Name = "GetNote")]
-    public ActionResult<Note> Get(int id)
+    [HttpGet(Name = "GetNotes")]
+    public ActionResult<IEnumerable<NoteResponse>> Get()
     {
-        Note? note = Notes.FirstOrDefault(currentNote => currentNote.Id == id);
+        return Ok(noteService.GetAll().Select(note => note.ToNoteResponse()));
+    }
+
+    [HttpGet("{id}", Name = "GetNote")]
+    public ActionResult<NoteResponse> Get(int id)
+    {
+        Note? note = noteService.GetById(id);
 
         if (note == null)
         {
             return NotFound();
         }
 
-        return Ok(note);
+        return Ok(note.ToNoteResponse());
     }
 
     [HttpPost(Name = "AddNote")]
-    public ActionResult<Note> Post(CreateNoteRequest request)
+    public ActionResult<NoteResponse> Post(CreateNoteRequest request)
     {
-        Note note = new Note
-        {
-            Id = NextId++,
-            Title = request.Title,
-            Content = request.Content
-        };
-        Notes.Add(note);
-        return CreatedAtAction(nameof(Get), new { id = note.Id }, note);
+        Note note = noteService.Create(request);
+
+        return CreatedAtAction(nameof(Get), new { id = note.Id }, note.ToNoteResponse());
     }
 
     [HttpDelete("{id}", Name = "DeleteNote")]
     public ActionResult Delete(int id)
     {
-        Note? note = Notes.FirstOrDefault(currentNote => currentNote.Id == id);
+        Note? note = noteService.Delete(id);
 
         if (note == null)
         {
             return NotFound();
         }
-
-        Notes.Remove(note);
 
         return NoContent();
     }
 
     [HttpPut("{id}", Name = "UpdateNote")]
-    public ActionResult<Note> Put(int id, CreateNoteRequest request)
+    public ActionResult<NoteResponse> Put(int id, UpdateNoteRequest request)
     {
-        Note? note = Notes.FirstOrDefault(currentNote => currentNote.Id == id);
+        Note? note = noteService.Update(id, request);
 
         if (note == null)
         {
             return NotFound();
         }
 
-        note.Title = request.Title;
-        note.Content = request.Content;
-
-        return Ok(note);
+        return Ok(note.ToNoteResponse());
     }
 }

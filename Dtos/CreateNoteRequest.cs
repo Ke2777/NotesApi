@@ -1,13 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace NotesApi;
-
-public class Note
-{
-    public int Id {get; set;}
-    public required string Title {get; set;}
-    public required string Content {get; set;}
-}
+namespace NotesApi.Dtos;
 
 public class CreateNoteRequest
 {
