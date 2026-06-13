@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Notes</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <main class="shell">
+        <section class="workspace" aria-label="Notes workspace">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">Notes API</p>
+                    <h1>Заметки</h1>
+                </div>
+                <button class="icon-button" id="refreshButton" type="button" title="Обновить">
+                    <span aria-hidden="true">↻</span>
+                </button>
+            </header>
+
+            <form class="composer" id="noteForm">
+                <input id="titleInput" name="title" type="text" minlength="3" placeholder="Заголовок" autocomplete="off" required>
+                <textarea id="contentInput" name="content" maxlength="500" placeholder="Текст заметки" required></textarea>
+                <div class="form-actions">
+                    <p class="status" id="statusText" role="status"></p>
+                    <div class="button-row">
+                        <button class="secondary-button" id="cancelButton" type="button" hidden>Отмена</button>
+                        <button class="primary-button" id="submitButton" type="submit">Создать</button>
+                    </div>
+                </div>
+            </form>
+
+            <section class="notes-panel">
+                <div class="panel-head">
+                    <h2>Все заметки</h2>
+                    <span class="counter" id="notesCounter">0</span>
+                </div>
+                <div class="notes-grid" id="notesGrid"></div>
+                <div class="empty-state" id="emptyState" hidden>
+                    <h2>Пока пусто</h2>
+                    <p>Создай первую заметку через форму выше.</p>
+                </div>
+            </section>
+        </section>
+    </main>
+    <script src="/app.js"></script>
+</body>
+</html>
