@@ -28,7 +28,7 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
 Склонируй проект на сервер и перейди в папку проекта:
 
 ```bash
-git clone <URL_РЕПОЗИТОРИЯ>
+git clone https://github.com/Ke2777/NotesApi.git
 cd NotesApi
 ```
 
