@@ -4,9 +4,9 @@ using NotesApi.Models;
 namespace NotesApi.Services;
 public interface INoteService
 {
-    IEnumerable<Note> GetAll();
-    Note? GetById(int id);
-    Note Create(CreateNoteRequest request);
-    Note? Delete(int id);
-    Note? Update(int id, UpdateNoteRequest request);
+    IEnumerable<Note> GetAll(int userId);
+    Note? GetById(int id, int userId);
+    Note Create(CreateNoteRequest request, int userId);
+    Note? Delete(int id, int userId);
+    Note? Update(int id, UpdateNoteRequest request, int userId);
 }

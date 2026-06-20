@@ -20,7 +20,8 @@ public class UserService : IUserService
         {
             Username = request.Username,
             Email = request.Email,
-            PasswordHash = _hasher.HashPassword(null!, request.Password)
+            PasswordHash = _hasher.HashPassword(null!, request.Password),
+            DateCreated = DateTime.UtcNow
         };
 
         _dbContext.Users.Add(user);
@@ -50,7 +51,9 @@ public class UserService : IUserService
 
     public User? GetByEmail(string email)
     {
-        return _dbContext.Users.FirstOrDefault(currentUser => currentUser.Email == email);
+        string normalizedEmail = email.Trim().ToLower();
+
+        return _dbContext.Users.FirstOrDefault(currentUser => currentUser.Email.ToLower() == normalizedEmail);
     }
     
 

@@ -13,12 +13,13 @@ public class NoteService : INoteService
         _dbContext = dbContext;
     }
 
-    public Note Create(CreateNoteRequest request)
+    public Note Create(CreateNoteRequest request, int userId)
     {
         Note note = new Note
         {
             Title = request.Title,
-            Content = request.Content
+            Content = request.Content,
+            UserId = userId
         };
 
         _dbContext.Notes.Add(note);
@@ -27,9 +28,9 @@ public class NoteService : INoteService
         return note;
     }
 
-    public Note? Delete(int id)
+    public Note? Delete(int id, int userId)
     {
-        Note? note = _dbContext.Notes.FirstOrDefault(currentNote => currentNote.Id == id);
+        Note? note = _dbContext.Notes.FirstOrDefault(currentNote => currentNote.Id == id && currentNote.UserId == userId);
 
         if (note == null)
         {
@@ -42,19 +43,19 @@ public class NoteService : INoteService
         return note;
     }
 
-    public IEnumerable<Note> GetAll()
+    public IEnumerable<Note> GetAll(int userId)
     {
-        return _dbContext.Notes;
+        return _dbContext.Notes.Where(note => note.UserId == userId);
     }
 
-    public Note? GetById(int id)
+    public Note? GetById(int id, int userId)
     {
-        return _dbContext.Notes.FirstOrDefault(currentNote => currentNote.Id == id);
+        return _dbContext.Notes.FirstOrDefault(currentNote => currentNote.Id == id && currentNote.UserId == userId);
     }
 
-    public Note? Update(int id, UpdateNoteRequest request)
+    public Note? Update(int id, UpdateNoteRequest request, int userId)
     {
-        Note? note = _dbContext.Notes.FirstOrDefault(currentNote => currentNote.Id == id);
+        Note? note = _dbContext.Notes.FirstOrDefault(currentNote => currentNote.Id == id && currentNote.UserId == userId);
 
         if (note == null)
         {

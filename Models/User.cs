@@ -1,4 +1,4 @@
-using NotesApi.Models;
+namespace NotesApi.Models;
 
 public class User
 {

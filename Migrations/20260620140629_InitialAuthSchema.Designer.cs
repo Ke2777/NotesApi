@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NotesApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260616084501_AddUsers")]
-    partial class AddUsers
+    [Migration("20260620140629_InitialAuthSchema")]
+    partial class InitialAuthSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,7 +51,7 @@ namespace NotesApi.Migrations
                     b.ToTable("Notes");
                 });
 
-            modelBuilder.Entity("User", b =>
+            modelBuilder.Entity("NotesApi.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -76,12 +76,15 @@ namespace NotesApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("NotesApi.Models.Note", b =>
                 {
-                    b.HasOne("User", "User")
+                    b.HasOne("NotesApi.Models.User", "User")
                         .WithMany("Notes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -90,7 +93,7 @@ namespace NotesApi.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("User", b =>
+            modelBuilder.Entity("NotesApi.Models.User", b =>
                 {
                     b.Navigation("Notes");
                 });

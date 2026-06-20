@@ -14,33 +14,58 @@
                     <p class="eyebrow">Notes API</p>
                     <h1>Заметки</h1>
                 </div>
-                <button class="icon-button" id="refreshButton" type="button" title="Обновить">
-                    <span aria-hidden="true">↻</span>
-                </button>
+                <div class="session-bar" id="sessionBar" hidden>
+                    <span id="userBadge"></span>
+                    <button class="secondary-button" id="logoutButton" type="button">Выйти</button>
+                </div>
             </header>
 
-            <form class="composer" id="noteForm">
-                <input id="titleInput" name="title" type="text" minlength="3" placeholder="Заголовок" autocomplete="off" required>
-                <textarea id="contentInput" name="content" maxlength="500" placeholder="Текст заметки" required></textarea>
-                <div class="form-actions">
-                    <p class="status" id="statusText" role="status"></p>
-                    <div class="button-row">
-                        <button class="secondary-button" id="cancelButton" type="button" hidden>Отмена</button>
-                        <button class="primary-button" id="submitButton" type="submit">Создать</button>
-                    </div>
+            <section class="auth-panel" id="authPanel">
+                <div class="auth-tabs" role="tablist" aria-label="Auth mode">
+                    <button class="tab active" id="loginTab" type="button">Вход</button>
+                    <button class="tab" id="registerTab" type="button">Регистрация</button>
                 </div>
-            </form>
 
-            <section class="notes-panel">
-                <div class="panel-head">
-                    <h2>Все заметки</h2>
-                    <span class="counter" id="notesCounter">0</span>
-                </div>
-                <div class="notes-grid" id="notesGrid"></div>
-                <div class="empty-state" id="emptyState" hidden>
-                    <h2>Пока пусто</h2>
-                    <p>Создай первую заметку через форму выше.</p>
-                </div>
+                <form class="auth-form" id="authForm">
+                    <input id="usernameInput" name="username" type="text" minlength="3" placeholder="Имя пользователя" autocomplete="username" hidden>
+                    <input id="emailInput" name="email" type="email" placeholder="Email" autocomplete="email" required>
+                    <input id="passwordInput" name="password" type="password" minlength="6" placeholder="Пароль" autocomplete="current-password" required>
+                    <div class="form-actions">
+                        <p class="status" id="authStatus" role="status"></p>
+                        <button class="primary-button" id="authSubmitButton" type="submit">Войти</button>
+                    </div>
+                </form>
+            </section>
+
+            <section id="notesApp" hidden>
+                <form class="composer" id="noteForm">
+                    <input id="titleInput" name="title" type="text" minlength="3" placeholder="Заголовок" autocomplete="off" required>
+                    <textarea id="contentInput" name="content" maxlength="500" placeholder="Текст заметки" required></textarea>
+                    <div class="form-actions">
+                        <p class="status" id="statusText" role="status"></p>
+                        <div class="button-row">
+                            <button class="secondary-button" id="cancelButton" type="button" hidden>Отмена</button>
+                            <button class="primary-button" id="submitButton" type="submit">Создать</button>
+                        </div>
+                    </div>
+                </form>
+
+                <section class="notes-panel">
+                    <div class="panel-head">
+                        <h2>Мои заметки</h2>
+                        <div class="button-row">
+                            <span class="counter" id="notesCounter">0</span>
+                            <button class="icon-button" id="refreshButton" type="button" title="Обновить">
+                                <span aria-hidden="true">↻</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="notes-grid" id="notesGrid"></div>
+                    <div class="empty-state" id="emptyState" hidden>
+                        <h2>Пока пусто</h2>
+                        <p>Создай первую заметку через форму выше.</p>
+                    </div>
+                </section>
             </section>
         </section>
     </main>

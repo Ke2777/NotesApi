@@ -59,6 +59,23 @@ button {
     gap: 16px;
 }
 
+.session-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.session-bar span {
+    max-width: min(44vw, 420px);
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 750;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .eyebrow {
     margin: 0 0 4px;
     color: var(--accent);
@@ -80,6 +97,7 @@ h1 {
     letter-spacing: 0;
 }
 
+.auth-panel,
 .composer,
 .notes-panel {
     background: rgba(255, 255, 255, .88);
@@ -88,9 +106,48 @@ h1 {
     box-shadow: var(--shadow);
 }
 
+.auth-panel {
+    display: grid;
+    gap: 14px;
+    max-width: 560px;
+    padding: 16px;
+}
+
+.auth-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 4px;
+    border-radius: 8px;
+    background: var(--surface-muted);
+}
+
+.tab {
+    min-height: 38px;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    color: var(--muted);
+    background: transparent;
+    font-weight: 800;
+}
+
+.tab.active {
+    color: var(--ink);
+    background: #fff;
+    border-color: var(--line);
+}
+
+.auth-form,
 .composer {
     display: grid;
     gap: 12px;
+}
+
+.auth-form {
+    padding: 0;
+}
+
+.composer {
     padding: 16px;
 }
 
@@ -300,6 +357,20 @@ textarea:focus {
     .form-actions {
         align-items: stretch;
         flex-direction: column;
+    }
+
+    .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .session-bar {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .session-bar span {
+        max-width: calc(100vw - 132px);
     }
 
     .button-row {
